@@ -1,0 +1,762 @@
+/* Import Font dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@400;600;700&display=swap');
+
+/* Variabel CSS untuk Warna */
+:root {
+    --primary-color: #00FF00; /* Hijau neon untuk highlight, khas dunia hacker/matrix */
+    --secondary-color: #00FFFF; /* Cyan/aqua untuk aksen kedua */
+    --dark-bg: #1A1A2E; /* Latar belakang gelap utama */
+    --card-bg: #2C2C4A; /* Latar belakang card/elemen */
+    --light-text: #E0E0E0; /* Teks terang */
+    --gray-text: #A0A0A0; /* Teks abu-abu */
+    --border-color: rgba(0, 255, 0, 0.2); /* Border hijau transparan */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Roboto Mono', monospace; /* Font monospasi untuk kesan kode */
+}
+
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--light-text);
+    background-color: var(--dark-bg);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    color: var(--light-text);
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 3.8em;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2.8em;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    color: var(--secondary-color); /* Judul bagian lebih cerah */
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: var(--primary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+p {
+    margin-bottom: 15px;
+    color: var(--light-text);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--font-heading);
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+    border: 2px solid var(--primary-color);
+}
+
+.primary-btn:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.4);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    margin-left: 15px;
+}
+
+.secondary-btn:hover {
+    background-color: var(--secondary-color);
+    color: var(--dark-bg);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+}
+
+.small-btn {
+    padding: 8px 18px;
+    font-size: 0.9em;
+}
+
+.highlight-text {
+    color: var(--primary-color);
+}
+
+/* Header & Navigasi */
+header {
+    background-color: var(--card-bg);
+    padding: 15px 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--light-text);
+    /* Efek teks glow */
+    text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 40px;
+}
+
+/* Untuk efek fade-in pada section */
+.hidden-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-links a {
+    color: var(--light-text);
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 5px 0;
+    position: relative;
+    font-family: var(--font-body);
+}
+
+.nav-links a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    background: var(--primary-color);
+    transition: width 0.3s;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Burger Menu (untuk mobile) */
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+.burger div {
+    width: 28px;
+    height: 3px;
+    background-color: var(--light-text);
+    margin: 6px;
+    transition: all 0.3s ease;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../img/hero-bg-security.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden; /* Untuk efek glitch */
+}
+
+/* Efek Glitch pada Hero */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(0,255,0,0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,255,0,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.hero-content {
+    max-width: 900px;
+    z-index: 2; /* Pastikan konten di atas efek */
+}
+
+.hero-content .pre-title {
+    font-family: var(--font-body);
+    font-size: 1.2em;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.hero-content h1 {
+    font-size: 4.5em;
+    margin-bottom: 25px;
+    line-height: 1.2;
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+}
+
+.hero-content .tagline {
+    font-size: 1.6em;
+    margin-bottom: 50px;
+    color: var(--gray-text);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+/* About Section */
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    text-align: left;
+}
+
+.about-image {
+    flex: 1;
+    min-width: 280px;
+    text-align: center;
+}
+
+.about-image img {
+    max-width: 350px;
+    border-radius: 0%;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-image img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.8);
+}
+
+.about-text {
+    flex: 2;
+    min-width: 300px;
+    max-width: 700px;
+    line-height: 1.8;
+}
+
+/* Skills/Expertise Section */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.skill-item {
+    background-color: var(--card-bg);
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+    border: 1px solid var(--border-color);
+}
+
+.skill-item:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 10px 25px rgba(0, 255, 0, 0.5);
+    background-color: rgba(44, 44, 74, 0.8); /* Sedikit lebih transparan */
+}
+
+.skill-item i {
+    font-size: 3.5em;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+}
+
+.skill-item h3 {
+    font-size: 1.4em;
+    margin: 0;
+    color: var(--light-text);
+}
+
+/* Projects/Bug Reports Section */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+}
+
+.project-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+}
+
+.project-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 10px 25px rgba(0, 255, 0, 0.5);
+}
+
+.project-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-card h3 {
+    margin: 25px 25px 15px;
+    font-size: 1.6em;
+    color: var(--primary-color);
+}
+
+.project-card p {
+    margin: 0 25px 25px;
+    flex-grow: 1;
+    color: var(--gray-text);
+}
+
+.project-links {
+    padding: 0 25px 25px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.project-links .status {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status.fixed {
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+}
+
+.status.achieved {
+    background-color: var(--secondary-color);
+    color: var(--dark-bg);
+}
+
+.status.completed {
+    background-color: var(--gray-text);
+    color: var(--dark-bg);
+}
+
+.small-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #444;
+    border-color: #444;
+    color: #CCC;
+}
+
+.small-btn.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Certifications Section */
+.certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    text-align: center;
+}
+
+.cert-item {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid var(--border-color);
+}
+
+.cert-item:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 10px 25px rgba(0, 255, 0, 0.5);
+}
+
+.cert-item img {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.cert-item h3 {
+    font-size: 1.5em;
+    color: var(--secondary-color);
+}
+
+.cert-item p {
+    font-size: 0.95em;
+    color: var(--gray-text);
+}
+
+/* Contact Section */
+.contact-content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-form {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    margin-top: 30px;
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--light-text);
+    font-family: var(--font-heading);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: var(--light-text);
+    font-family: var(--font-body);
+    font-size: 1.05em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(0, 255, 0, 0.25);
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 18px;
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+.social-links {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    font-size: 2.5em;
+    color: var(--light-text);
+    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+    transform: translateY(-8px);
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+}
+
+/* Footer */
+footer {
+    background-color: var(--card-bg);
+    padding: 35px 0;
+    text-align: center;
+    color: var(--gray-text);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9em;
+}
+
+footer p {
+    margin-bottom: 8px;
+    color: var(--gray-text);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    /* Header & Navigasi */
+    .nav-links {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        background-color: var(--card-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 70%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+        padding-top: 100px;
+        box-shadow: -8px 0 20px rgba(0, 0, 0, 0.6);
+        border-left: 1px solid var(--border-color);
+    }
+
+    .nav-links li {
+        opacity: 0;
+        margin: 30px 0;
+    }
+
+    .nav-links a {
+        font-size: 1.6em;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    /* Burger animation */
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-6px, 7px);
+    }
+    .toggle .line2 {
+        opacity: 0;
+    }
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-6px, -7px);
+    }
+
+    /* Slide in nav */
+    .nav-active {
+        transform: translateX(0%);
+    }
+
+    .nav-active li {
+        animation: navLinkFade 0.5s ease forwards 0.3s;
+    }
+
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Hero Section */
+    .hero-content h1 {
+        font-size: 3em;
+    }
+
+    .hero-content .tagline {
+        font-size: 1.3em;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn {
+        width: 80%;
+        max-width: 300px; /* Batasi lebar tombol di mobile */
+        margin: 0 auto; /* Tengahkankan tombol */
+    }
+    .secondary-btn {
+        margin-left: 0; /* Hapus margin kiri untuk tombol kedua */
+    }
+
+    /* About Section */
+    .about-content {
+        text-align: center;
+        flex-direction: column;
+    }
+
+    .about-image {
+        margin-bottom: 40px;
+    }
+
+    .about-image img {
+        max-width: 280px;
+    }
+
+    /* Sections */
+    .section-padding {
+        padding: 60px 0;
+    }
+
+    h1 {
+        font-size: 3.2em;
+    }
+
+    h2 {
+        font-size: 2.2em;
+        margin-bottom: 40px;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 25px;
+    }
+
+    .skill-item i {
+        font-size: 3em;
+    }
+
+    .skill-item h3 {
+        font-size: 1.2em;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+        grid-template-columns: 1fr; /* Satu kolom untuk mobile */
+        gap: 30px;
+    }
+
+    .project-card h3 {
+        font-size: 1.4em;
+    }
+
+    /* Certifications Grid */
+    .certs-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .cert-item img {
+        max-width: 120px;
+    }
+
+    .cert-item h3 {
+        font-size: 1.3em;
+    }
+
+    /* Contact Form */
+    .contact-form {
+        padding: 30px;
+    }
+
+    .social-links {
+        gap: 20px;
+    }
+
+    .social-links a {
+        font-size: 2.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+
+    .hero-content .tagline {
+        font-size: 1.1em;
+    }
+
+    .logo {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+}
